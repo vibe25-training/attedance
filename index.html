@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>하루출석 — 우리 반 출석 관리</title>
+<style>
+  :root{--ink:#25273a;--muted:#9295a6;--purple:#7057da;--purple-dark:#5940c5;--light:#f3f0ff;--line:#efedf3;--bg:#f8f8fb;--green:#32a57d;--amber:#e7a44d;--rose:#e77883;--blue:#6c95d7}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,"Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;font-size:14px}button,input,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #c6bafa;outline-offset:2px}svg{display:block;flex-shrink:0}button{border:0}.app{min-height:100vh;display:flex}.sidebar{width:242px;background:#fff;border-right:1px solid #efedf3;display:flex;flex-direction:column;padding:32px 22px 24px;position:fixed;inset:0 auto 0 0}.brand{display:flex;align-items:center;gap:11px;padding:0 6px;color:#29263c;font-size:19px;font-weight:800;letter-spacing:-.7px}.brand-mark{width:37px;height:37px;display:grid;place-items:center;background:var(--purple);border-radius:12px;color:#fff;box-shadow:0 5px 12px #7057da30}.brand small{display:block;font-size:10px;color:#aaa9b8;font-weight:700;letter-spacing:1.5px;margin-top:1px}.nav-label{margin:53px 10px 12px;color:#b9bac6;font-size:10px;font-weight:800;letter-spacing:1.2px}.nav-item{height:46px;border-radius:10px;background:#f2effe;color:#7057da;display:flex;align-items:center;gap:12px;padding:0 14px;font-weight:700}.side-bottom{margin-top:auto;border-radius:15px;background:#f8f7fd;padding:17px 15px;color:#8f8da2;line-height:1.6;font-size:12px}.side-bottom strong{display:block;color:#57536c;font-size:12px;margin-bottom:4px}.main{margin-left:242px;width:calc(100% - 242px);min-width:0}.topbar{height:76px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 48px}.topbar-title{font-weight:700;color:#656679}.topbar-right{display:flex;align-items:center;gap:12px;color:#9b9ba9;font-size:12px}.avatar{width:34px;height:34px;border-radius:50%;background:#ece8fb;color:#7057da;display:grid;place-items:center;font-weight:800}.content{max-width:1510px;margin:auto;padding:43px 48px 60px}.page-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:26px}.eyebrow{font-size:11px;letter-spacing:1.6px;font-weight:800;color:#9e90df;margin:0 0 10px}.page-head h1{font-size:29px;letter-spacing:-1.3px;margin:0 0 8px;font-weight:800}.page-head p{margin:0;color:#9798a7;font-size:14px}.date-chip{display:flex;align-items:center;gap:8px;color:#77768a;font-size:12px;background:#fff;border:1px solid var(--line);padding:10px 13px;border-radius:10px;white-space:nowrap}.layout{display:grid;grid-template-columns:minmax(0,1fr) 315px;gap:22px;align-items:start}.left,.right{min-width:0}.hero{background:#eee9ff;border-radius:18px;padding:25px 28px;display:flex;justify-content:space-between;align-items:center;min-height:128px;position:relative;overflow:hidden}.hero:after,.hero:before{content:"";position:absolute;border:1px solid #dcd3ff;border-radius:50%;width:180px;height:180px;right:80px;top:-100px}.hero:after{width:125px;height:125px;right:10px;top:50px}.hero-copy{position:relative;z-index:1}.hero-kicker{font-size:11px;font-weight:800;color:#8c78db;letter-spacing:.5px;margin-bottom:8px}.hero h2{font-size:19px;letter-spacing:-.7px;margin:0 0 7px}.hero p{margin:0;color:#8f86b3;font-size:12px;line-height:1.6}.hero-icon{width:74px;height:74px;border-radius:24px;background:#fff9;display:grid;place-items:center;transform:rotate(8deg);color:#8f79df;margin-right:20px;position:relative;z-index:1;box-shadow:0 8px 20px #8f79df14}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:13px;margin:20px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px 19px 17px;min-width:0}.stat-top{display:flex;justify-content:space-between;align-items:center;color:#8c8d9d;font-size:12px;font-weight:700}.stat-icon{width:31px;height:31px;border-radius:10px;display:grid;place-items:center}.stat strong{font-size:25px;display:inline-block;margin-top:12px;letter-spacing:-1px}.stat small{color:#aaaab6;margin-left:4px;font-size:12px}.card{background:#fff;border:1px solid var(--line);border-radius:17px}.attendance{padding:24px 25px}.card-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.card-heading h2,.calendar-title h2{font-size:16px;letter-spacing:-.5px;margin:0 0 6px}.card-heading p,.calendar-sub{font-size:12px;color:#a1a1af;margin:0}.action-btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--purple);color:white;padding:11px 15px;border-radius:9px;font-weight:700;font-size:12px;white-space:nowrap}.action-btn:hover{background:var(--purple-dark)}.add-form{display:flex;gap:8px;margin:22px 0 18px}.input-wrap{position:relative;flex:1}.input-wrap svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#aaa9ba}.input-wrap input{width:100%;height:43px;border:1px solid #eeedf3;border-radius:9px;padding:0 13px 0 39px;background:#fafafd;color:var(--ink)}input::placeholder,textarea::placeholder{color:#c0bfca}.add-form button{min-width:76px}.list-head{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;padding:15px 2px;color:#a3a3b1;font-size:11px;font-weight:700}.list-head span:last-child{padding-right:33px}.student-row{display:flex;align-items:center;gap:12px;padding:15px 2px;border-bottom:1px solid #f4f3f7}.student-row:last-child{border-bottom:0}.student-avatar{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:#f3f0ff;color:#7a64d6;font-weight:800}.student-info{min-width:0;flex:1}.student-name{font-weight:700;overflow-wrap:anywhere}.student-meta{color:#b0afbd;font-size:11px;margin-top:4px}.status-select{border:1px solid #eae8f0;background:#fff;border-radius:8px;padding:8px 27px 8px 10px;color:#77778a;font-size:12px;font-weight:700;cursor:pointer;max-width:110px}.status-select[data-status="present"]{background:#edf9f4;border-color:#def3e9;color:#299c72}.status-select[data-status="late"]{background:#fff8ed;border-color:#fbeedb;color:#ca913c}.status-select[data-status="early"]{background:#eff5ff;border-color:#e4edfc;color:#638bcb}.status-select[data-status="absent"]{background:#fff1f2;border-color:#fce5e7;color:#d96e79}.delete-btn{background:transparent;color:#c5c4d0;padding:8px;border-radius:8px}.delete-btn:hover{color:#d96e79;background:#fff1f2}.empty{text-align:center;padding:42px 10px 38px}.empty-icon{width:58px;height:58px;border-radius:19px;background:#f7f5ff;color:#ad9ee9;display:grid;place-items:center;margin:0 auto 15px}.empty strong{font-size:14px}.empty p{color:#aaaab7;font-size:12px;line-height:1.7;margin:8px 0 0}.calendar{padding:23px 21px}.calendar-title{display:flex;align-items:center;justify-content:space-between}.calendar-sub{margin-top:5px}.month-bar{display:flex;align-items:center;justify-content:space-between;margin:26px 0 15px}.month-bar strong{font-size:15px;letter-spacing:-.5px}.month-nav{display:flex;gap:4px}.icon-btn{width:29px;height:29px;border:1px solid #f0eff4;border-radius:8px;background:#fff;color:#9694a5;display:grid;place-items:center}.icon-btn:hover{background:#f8f6ff;color:var(--purple)}.weekdays,.days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center}.weekdays{color:#b4b3c0;font-size:10px;font-weight:700;margin-bottom:7px}.weekdays span{padding:5px 0}.days{row-gap:4px}.day,.day-blank{height:34px;width:34px;justify-self:center}.day{background:transparent;color:#777789;border-radius:10px;font-size:12px;position:relative}.day:hover{background:#f5f2ff}.day.selected{background:var(--purple);color:#fff;font-weight:700}.day.today:not(.selected){color:var(--purple);font-weight:800}.day.has-record:after{content:"";position:absolute;width:3px;height:3px;border-radius:50%;background:#a695ec;bottom:4px;left:calc(50% - 1.5px)}.day.selected.has-record:after{background:white}.calendar-footer{border-top:1px solid var(--line);margin-top:18px;padding-top:16px;display:flex;justify-content:space-between;align-items:center;color:#aaa9b7;font-size:11px}.text-btn{background:transparent;color:var(--purple);font-weight:700;font-size:11px;padding:4px}.note-card{margin-top:18px;padding:22px 21px}.note-card h2{font-size:14px;margin:0 0 7px}.note-card p{color:#a1a1af;font-size:12px;margin:0 0 14px;line-height:1.5}.note-card textarea{width:100%;height:92px;resize:vertical;border:1px solid #eeedf3;border-radius:9px;background:#fafafd;padding:12px;color:var(--ink);line-height:1.5}.note-footer{display:flex;justify-content:space-between;align-items:center;color:#b1afbd;font-size:11px;margin-top:10px}.note-footer button{font-size:11px;padding:8px 12px}.export-card{margin-top:18px;padding:18px 20px;display:flex;align-items:center;gap:12px}.export-icon{width:38px;height:38px;border-radius:12px;background:#f1edff;color:#8c75df;display:grid;place-items:center}.export-copy{flex:1;min-width:0}.export-copy strong{font-size:12px;display:block;margin-bottom:4px}.export-copy span{font-size:11px;color:#aaa9b6}.export-btn{background:transparent;color:#8b7bd3;padding:6px}.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333044;color:white;padding:12px 18px;border-radius:10px;font-size:12px;box-shadow:0 5px 20px #0002;z-index:5;max-width:90vw}.hidden{display:none!important}
+  @media(max-width:1100px){.sidebar{width:190px}.main{margin-left:190px;width:calc(100% - 190px)}.topbar{padding:0 28px}.content{padding:35px 28px}.layout{grid-template-columns:minmax(0,1fr) 290px}.stat{padding:15px 12px}.stat-top{font-size:11px}}
+  @media(max-width:850px){.sidebar{position:static;width:auto;padding:16px 20px;border-right:0;border-bottom:1px solid var(--line)}.app{display:block}.brand small,.nav-label,.nav-item,.side-bottom{display:none}.main{margin:0;width:100%}.topbar{height:54px}.content{padding:28px 20px 45px}.layout{grid-template-columns:1fr}.right{display:grid;grid-template-columns:1fr 1fr;gap:15px}.note-card,.export-card{margin-top:0}.export-card{grid-column:2}.calendar{grid-row:span 2}.days .day,.day-blank{width:100%}}
+  @media(max-width:520px){.topbar{padding:0 20px}.topbar-right{font-size:0}.page-head{align-items:flex-start}.page-head h1{font-size:24px}.date-chip{font-size:0;padding:10px}.date-chip svg{width:16px}.hero{padding:22px;min-height:120px}.hero-icon{width:55px;height:55px;margin-right:0}.hero-icon svg{width:28px}.stats{gap:8px}.stat{padding:13px 9px}.stat-icon{width:25px;height:25px}.stat strong{font-size:21px}.stat small{font-size:10px}.attendance{padding:20px 16px}.right{display:block}.note-card,.export-card{margin-top:15px}.student-row{gap:7px}.student-avatar{width:33px;height:33px}.list-head span:last-child{padding-right:20px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4M17 3v4M3 10h18m-12 5 2 2 4-4"/></svg></div><div>하루출석<small>ATTENDANCE</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <div class="nav-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18m-12 5 2 2 4-4"/></svg>출석 대시보드</div>
+    <div class="side-bottom"><strong>매일의 기록이 차곡차곡 ✨</strong>우리 반의 하루를<br>간편하게 기록해 보세요.</div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div class="topbar-title">출석 대시보드</div><div class="topbar-right">우리 반 출석 관리 <div class="avatar">반</div></div></header>
+    <div class="content">
+      <div class="page-head"><div><div class="eyebrow">ATTENDANCE DASHBOARD</div><h1>출석 대시보드</h1><p>우리 반의 소중한 하루를 기록해요.</p></div><div class="date-chip" id="today-label"></div></div>
+      <div class="layout">
+        <section class="left">
+          <div class="hero"><div class="hero-copy"><div class="hero-kicker">EVERY DAY COUNTS</div><h2>오늘도 함께하는 우리 반 👋</h2><p>작은 출석 기록이 모여 특별한 하루가 돼요.<br>학생들의 출결을 한눈에 관리해 보세요.</p></div><div class="hero-icon"><svg width="37" height="37" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4M17 3v4M3 10h18m-12 5 2 2 4-4"/></svg></div></div>
+          <div class="stats" aria-label="선택한 날짜 출결 현황">
+            <div class="stat"><div class="stat-top">전체 학생 <span class="stat-icon" style="background:#f1effe;color:#8972dc"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><path d="M3 19v-1a6 6 0 0 1 12 0v1M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 5"/></svg></span></div><strong id="count-total">0</strong><small>명</small></div>
+            <div class="stat"><div class="stat-top">출석 <span class="stat-icon" style="background:#edf9f4;color:#54b791"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 4 4L19 6"/></svg></span></div><strong id="count-present">0</strong><small>명</small></div>
+            <div class="stat"><div class="stat-top">지각 · 조퇴 <span class="stat-icon" style="background:#fff7e9;color:#e3aa59"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span></div><strong id="count-other">0</strong><small>명</small></div>
+            <div class="stat"><div class="stat-top">결석 <span class="stat-icon" style="background:#fff0f2;color:#e78d96"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/></svg></span></div><strong id="count-absent">0</strong><small>명</small></div>
+          </div>
+          <section class="card attendance"><div class="card-heading"><div><h2>학생 출결 현황</h2><p id="selected-description"></p></div><button class="action-btn" id="mark-all" type="button">✓&nbsp; 모두 출석</button></div>
+            <form class="add-form" id="add-form"><div class="input-wrap"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20v-1a7 7 0 0 1 14 0v1"/></svg><input id="student-name" maxlength="40" autocomplete="off" placeholder="학생 이름을 입력해 주세요" aria-label="학생 이름" required></div><button class="action-btn" type="submit">+ &nbsp;학생 추가</button></form>
+            <div class="list-head"><span>학생 이름</span><span>출결 상태</span></div><div id="student-list"></div>
+          </section>
+        </section>
+        <aside class="right">
+          <section class="card calendar"><div class="calendar-title"><div><h2>출석 달력</h2><p class="calendar-sub">날짜를 선택해 출결을 확인하세요</p></div><span style="color:#b6a8ee"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg></span></div>
+            <div class="month-bar"><strong id="month-label"></strong><div class="month-nav"><button class="icon-btn" id="prev-month" type="button" aria-label="이전 달">‹</button><button class="icon-btn" id="next-month" type="button" aria-label="다음 달">›</button></div></div>
+            <div class="weekdays"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div><div class="days" id="calendar-days"></div>
+            <div class="calendar-footer"><span>• 표시된 날짜는 기록이 있어요</span><button class="text-btn" id="go-today" type="button">오늘로 이동</button></div>
+          </section>
+          <section class="card note-card"><h2>📝 &nbsp;하루 메모</h2><p>선택한 날짜의 특별한 이야기를 남겨보세요.</p><textarea id="note" maxlength="1000" placeholder="오늘의 메모를 입력해 주세요" aria-label="선택한 날짜의 메모"></textarea><div class="note-footer"><span id="note-count">0 / 1000</span><button class="action-btn" id="save-note" type="button">메모 저장</button></div></section>
+          <section class="card export-card"><div class="export-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-4-4 4 4 4-4M5 17v3h14v-3"/></svg></div><div class="export-copy"><strong>출결 기록 내보내기</strong><span>선택한 달의 기록을 CSV로 저장</span></div><button class="export-btn" id="export" type="button" aria-label="선택한 달의 출결 기록 CSV 다운로드">↗</button></section>
+        </aside>
+      </div>
+    </div>
+  </main>
+</div>
+<div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  "use strict";
+  const KEY = "haru-attendance-v1";
+  const labels = {present:"출석", late:"지각", early:"조퇴", absent:"결석"};
+  const $ = id => document.getElementById(id);
+  const pad = n => String(n).padStart(2, "0");
+  const dateKey = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  const today = () => dateKey(new Date());
+  const formatDate = key => { const [y,m,d] = key.split("-").map(Number); const day = ["일","월","화","수","목","금","토"][new Date(y,m-1,d).getDay()]; return `${y}년 ${m}월 ${d}일 (${day})`; };
+  let state = {students:[], records:{}, notes:{}};
+  let selected = today();
+  let viewed = new Date(Number(selected.slice(0,4)), Number(selected.slice(5,7))-1, 1);
+  let toastTimer;
+  function notify(message) { const el=$("toast"); el.textContent=message; el.classList.remove("hidden"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>el.classList.add("hidden"),3000); }
+  try {
+    const saved = localStorage.getItem(KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (!Array.isArray(parsed.students) || !parsed.records || !parsed.notes) throw new Error("Invalid data");
+      state = parsed;
+    }
+  } catch (error) { notify("저장된 데이터를 불러오지 못했습니다. 브라우저 저장 공간을 확인해 주세요."); }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
+    catch (error) { notify("저장하지 못했습니다. 브라우저 저장 공간을 확인해 주세요."); return false; }
+  }
+  function renderCalendar() {
+    const year=viewed.getFullYear(), month=viewed.getMonth();
+    $("month-label").textContent=`${year}년 ${month+1}월`;
+    const days=$("calendar-days"); days.replaceChildren();
+    for(let i=0;i<new Date(year,month,1).getDay();i++){const blank=document.createElement("span");blank.className="day-blank";days.append(blank);}
+    const last=new Date(year,month+1,0).getDate();
+    for(let day=1;day<=last;day++){
+      const key=dateKey(new Date(year,month,day)), button=document.createElement("button");
+      button.type="button"; button.className="day"; button.textContent=day;
+      button.setAttribute("aria-label",formatDate(key)); button.setAttribute("aria-pressed",String(key===selected));
+      if(key===selected) button.classList.add("selected");
+      if(key===today()) button.classList.add("today");
+      if(Object.keys(state.records[key]||{}).length || state.notes[key]) button.classList.add("has-record");
+      button.addEventListener("click",()=>selectDate(key)); days.append(button);
+    }
+  }
+  function renderList() {
+    const records=state.records[selected]||{}, list=$("student-list"); list.replaceChildren();
+    $("count-total").textContent=state.students.length;
+    const counts={present:0,late:0,early:0,absent:0};
+    state.students.forEach(student=>{if(records[student.id] in counts) counts[records[student.id]]++;});
+    $("count-present").textContent=counts.present; $("count-other").textContent=counts.late+counts.early; $("count-absent").textContent=counts.absent;
+    $("selected-description").textContent=`${formatDate(selected)} · 출결을 선택해 주세요`;
+    if(!state.students.length){
+      const empty=document.createElement("div"); empty.className="empty";
+      empty.innerHTML='<div class="empty-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20v-1a7 7 0 0 1 14 0v1"/></svg></div><strong>아직 등록된 학생이 없어요</strong><p>학생 이름을 추가하고<br>첫 출석 기록을 시작해 보세요.</p>';
+      list.append(empty); return;
+    }
+    state.students.forEach((student,index)=>{
+      const row=document.createElement("div"); row.className="student-row";
+      const avatar=document.createElement("div"); avatar.className="student-avatar"; avatar.textContent=student.name.slice(0,1);
+      const info=document.createElement("div"); info.className="student-info";
+      const name=document.createElement("div"); name.className="student-name"; name.textContent=student.name;
+      const meta=document.createElement("div"); meta.className="student-meta"; meta.textContent=`학생 ${String(index+1).padStart(2,"0")}`;
+      info.append(name,meta);
+      const select=document.createElement("select"); select.className="status-select"; select.setAttribute("aria-label",`${student.name} 출결 상태`);
+      [["","미기록"],...Object.entries(labels)].forEach(([value,label])=>{const option=document.createElement("option");option.value=value;option.textContent=label;select.append(option);});
+      select.value=records[student.id]||""; select.dataset.status=select.value;
+      select.addEventListener("change",()=>{
+        if(select.value){(state.records[selected] ||= {})[student.id]=select.value;}
+        else if(state.records[selected]){delete state.records[selected][student.id];if(!Object.keys(state.records[selected]).length) delete state.records[selected];}
+        save(); renderList(); renderCalendar();
+      });
+      const remove=document.createElement("button"); remove.type="button"; remove.className="delete-btn"; remove.setAttribute("aria-label",`${student.name} 삭제`); remove.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>';
+      remove.addEventListener("click",()=>{
+        if(!confirm(`${student.name} 학생을 삭제할까요? 이 학생의 모든 날짜 출결 기록도 삭제됩니다.`)) return;
+        state.students=state.students.filter(s=>s.id!==student.id);
+        Object.keys(state.records).forEach(key=>{delete state.records[key][student.id];if(!Object.keys(state.records[key]).length) delete state.records[key];});
+        if(save()) notify("학생을 삭제했습니다."); renderList(); renderCalendar();
+      });
+      row.append(avatar,info,select,remove); list.append(row);
+    });
+  }
+  function render() { renderCalendar(); renderList(); $("note").value=state.notes[selected]||""; updateNoteCount(); }
+  function updateNoteCount(){ $("note-count").textContent=`${$("note").value.length} / 1000`; }
+  function selectDate(key) {
+    if($("note").value!==(state.notes[selected]||"") && !confirm("저장하지 않은 메모가 있습니다. 날짜를 이동할까요?")) return;
+    selected=key; viewed=new Date(Number(key.slice(0,4)),Number(key.slice(5,7))-1,1); render();
+  }
+  $("today-label").innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg><span></span>';
+  $("today-label").lastElementChild.textContent=`오늘 ${formatDate(today())}`;
+  $("add-form").addEventListener("submit",event=>{
+    event.preventDefault(); const input=$("student-name"), name=input.value.trim();
+    if(!name){notify("학생 이름을 입력해 주세요.");return;}
+    if(state.students.some(s=>s.name===name)){notify("이미 등록된 이름입니다.");return;}
+    state.students.push({id:globalThis.crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`,name});
+    if(save()){input.value="";notify("학생을 추가했습니다.");} renderList(); renderCalendar();
+  });
+  $("mark-all").addEventListener("click",()=>{
+    if(!state.students.length){notify("먼저 학생을 추가해 주세요.");return;}
+    if(state.students.some(s=>(state.records[selected]||{})[s.id] && state.records[selected][s.id]!=="present") && !confirm("기존 지각, 조퇴, 결석 기록도 모두 출석으로 변경할까요?")) return;
+    const records=state.records[selected] ||= {}; state.students.forEach(s=>records[s.id]="present");
+    if(save()) notify("모두 출석으로 기록했습니다."); renderList(); renderCalendar();
+  });
+  $("prev-month").addEventListener("click",()=>{viewed=new Date(viewed.getFullYear(),viewed.getMonth()-1,1);renderCalendar();});
+  $("next-month").addEventListener("click",()=>{viewed=new Date(viewed.getFullYear(),viewed.getMonth()+1,1);renderCalendar();});
+  $("go-today").addEventListener("click",()=>selectDate(today()));
+  $("note").addEventListener("input",updateNoteCount);
+  $("save-note").addEventListener("click",()=>{const value=$("note").value.trim();if(value) state.notes[selected]=value;else delete state.notes[selected];if(save()){notify("메모를 저장했습니다.");$("note").value=value;updateNoteCount();}renderCalendar();});
+  $("export").addEventListener("click",()=>{
+    const prefix=`${viewed.getFullYear()}-${pad(viewed.getMonth()+1)}`;
+    const rows=[["날짜","학생 이름","출결 상태","메모"]];
+    Object.keys(state.records).filter(key=>key.startsWith(prefix+"-")).sort().forEach(key=>{
+      state.students.forEach(student=>{const status=state.records[key][student.id];if(status) rows.push([key,student.name,labels[status],state.notes[key]||""]);});
+    });
+    Object.keys(state.notes).filter(key=>key.startsWith(prefix+"-") && !Object.keys(state.records[key]||{}).length).sort().forEach(key=>rows.push([key,"","",state.notes[key]]));
+    if(rows.length===1){notify("선택한 달에 저장된 기록이 없습니다.");return;}
+    const csv=rows.map(row=>row.map(cell=>{let value=String(cell);if(/^[\s]*[=+\-@\t\r]/.test(value)) value="'"+value;return `"${value.replace(/"/g,'""')}"`;}).join(",")).join("\r\n");
+    const url=URL.createObjectURL(new Blob(["\ufeff",csv],{type:"text/csv;charset=utf-8"}));
+    const link=document.createElement("a");link.href=url;link.download=`출결기록-${prefix}.csv`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
